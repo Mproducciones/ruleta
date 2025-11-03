@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontend/dist/**/*",
-      "use": "@vercel/static"
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "frontend/dist" }
     },
-    
     {
       "src": "worldcoin-backend/index.js",
       "use": "@vercel/node"
@@ -14,7 +14,7 @@
   "routes": [
     {
       "src": "/api/verify",
-      "dest": "worldcoin-backend/indes.js"
+      "dest": "worldcoin-backend/index.js"
     },
     {
       "src": "/(.*)",
