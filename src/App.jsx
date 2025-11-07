@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { IDKitWidget } from '@worldcoin/idkit';
 
 function App() {
-  const [isVerified, setIsVerified] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(true);
+  const [isVerified, setIsVerified] = useState(true);
+  const [isVerifying, setIsVerifying] = useState(false);
   const [message, setMessage] = useState("Verifica tu identidad para jugar.");
 
   const handleVerify = async (result) => {
