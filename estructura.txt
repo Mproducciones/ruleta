@@ -1,0 +1,68 @@
+Listado de rutas de carpetas
+El n£mero de serie del volumen es 048B-C769
+C:.
+³   .gitignore
+³   eslint.config.js
+³   estructura.txt
+³   index.html
+³   package-lock.json
+³   package.json
+³   README.md
+³   vercel.json
+³   vite.confing.js
+³   
+ÃÄÄÄapi
+³       verify.js
+³       
+ÃÄÄÄpublic
+³   ³   vite.svg
+³   ³   
+³   ÃÄÄÄassets
+³   ³       background.jpg
+³   ³       bk.jpg
+³   ³       flecha.png
+³   ³       history.png
+³   ³       home.png
+³   ³       llogo.png
+³   ³       logo.png
+³   ³       plane.png
+³   ³       profile.png
+³   ³       qq.png
+³   ³       README.txt
+³   ³       roulette_lights_only.png
+³   ³       wallet.png
+³   ³       wh.png
+³   ³       wwh.png
+³   ³       
+³   ÀÄÄÄsounds
+³           bet.mp3
+³           lose.mp3
+³           spin.mp3
+³           win.mp3
+³           
+ÃÄÄÄsrc
+³   ³   App.css
+³   ³   App.jsx
+³   ³   index.css
+³   ³   main.jsx
+³   ³   Nuevo documento de texto.txt
+³   ³   styles.css
+³   ³   
+³   ÃÄÄÄassets
+³   ³       react.svg
+³   ³       
+³   ÀÄÄÄcomponents
+³           AuthButton.js
+³           BetPanel.jsx
+³           ColorPlaneGame.css
+³           ColorPlaneGame.jsx
+³           History.jsx
+³           Navbar.jsx
+³           Nuevo documento de texto.txt
+³           utils.js
+³           
+ÀÄÄÄworldcoin-backend
+        index.js
+        package-lock.json
+        package.json
+        
