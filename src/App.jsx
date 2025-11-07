@@ -4,7 +4,7 @@ import { IDKitWidget } from '@worldcoin/idkit';
 
 function App() {
   const [isVerified, setIsVerified] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(true);
   const [message, setMessage] = useState("Verifica tu identidad para jugar.");
 
   const handleVerify = async (result) => {
