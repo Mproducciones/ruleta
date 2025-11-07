@@ -1,30 +1,49 @@
 // api/verify.js
-export default async function handler(req, res) {
+const fetch = require('node-fetch');
+
+module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método no permitido' });
   }
 
-  const { proof } = req.body;
-  if (!proof) return res.status(400).json({ error: 'Falta proof' });
+  const { proof, merkle_root, nullifier_hash, verification_level, signal } = req.body;
+
+  if (!proof || !merkle_root || !nullifier_hash || !verification_level) {
+    return res.status(400).json({ error: 'Faltan parámetros en la prueba' });
+  }
+
+  const appId = process.env.APP_ID;
+  if (!appId) {
+    console.error('APP_ID no está configurado en Vercel');
+    return res.status(500).json({ error: 'Configuración del servidor incompleta' });
+  }
 
   try {
-    const response = await fetch('https://developer.worldcoin.org/api/v1/verify', {
+    const verifyUrl = `https://developer.worldcoin.org/api/v2/verify/${appId}`;
+
+    const verifyRes = await fetch(verifyUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        ...proof,
+        proof,
+        merkle_root,
+        nullifier_hash,
+        verification_level,
         action: 'login',
+        signal: signal || '',
       }),
     });
 
-    const data = await response.json();
+    const data = await verifyRes.json();
 
-    if (response.ok && data.success) {
-      res.status(200).json({ success: true });
+    if (verifyRes.ok && data.success) {
+      return res.status(200).json({ success: true });
     } else {
-      res.status(400).json({ error: data.error || 'Verificación fallida' });
+      console.error('Verificación fallida:', data);
+      return res.status(400).json({ error: data.code || 'Verificación fallida' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error del servidor' });
+    console.error('Error en verificación:', error);
+    return res.status(500).json({ error: 'Error del servidor' });
   }
-}
+};

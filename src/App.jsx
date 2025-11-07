@@ -1,5 +1,6 @@
-﻿import React, { useState } from 'react';
-import { IDKitWidget } from '@worldcoin/idkit';  // Ya actualizado
+﻿// src/App.jsx
+import React, { useState } from 'react';
+import { IDKitWidget } from '@worldcoin/idkit';
 
 function App() {
   const [isVerified, setIsVerified] = useState(false);
@@ -26,8 +27,8 @@ function App() {
         setMessage(data.error || "Verificación falló. Intenta de nuevo.");
       }
     } catch (error) {
-      console.error("Error:", error);
-      setMessage("Error de conexión. Verifica tu backend.");
+      console.error("Error de conexión:", error);
+      setMessage("Error de conexión. Intenta más tarde.");
     } finally {
       setIsVerifying(false);
     }
@@ -36,38 +37,40 @@ function App() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
       {isVerified ? (
-        <div className="game-screen text-center p-8 bg-gray-900 min-h-screen text-white flex flex-col items-center justify-center">
+        <div className="text-center p-8">
           <h1 className="text-4xl font-bold mb-4">¡Verificación Exitosa!</h1>
           <p className="text-xl mb-8">Ahora puedes jugar a la ruleta.</p>
           <img 
             src="/assets/roulette_lights_only.png" 
-            alt="Ruleta del Juego" 
-            className="rounded-full shadow-lg w-64 h-64" 
+            alt="Ruleta" 
+            className="rounded-full shadow-2xl w-64 h-64 mx-auto animate-pulse"
           />
-          {/* Integra aquí tu componente de ruleta con framer-motion */}
+          {/* Aquí va tu juego real */}
         </div>
       ) : (
-        <div className="text-center p-8 bg-gray-800 rounded-lg shadow-xl">
-          <h1 className="text-3xl font-bold mb-4">Bienvenido a la Ruleta</h1>
-          <p className="text-lg mb-6 text-gray-400">{message}</p>
-          
+        <div className="text-center p-8 bg-gray-800 rounded-xl shadow-2xl max-w-md">
+          <h1 className="text-3xl font-bold mb-4">Ruleta Worldcoin</h1>
+          <p className="text-lg mb-6 text-gray-300">{message}</p>
+
           <IDKitWidget
-            app_id="app_7ec06caed3f34cbacd2ffaa7569655f6"  // ← Nuevo app_id de IDKit
-            action="login"  // Coincide con backend
-            signal="user-login-ruleta-v25"  // ← Nuevo: Mejora privacidad (hash del usuario)
-            onSuccess={(proof) => console.log("Prueba generada:", proof)}
+            app_id={import.meta.env.VITE_APP_ID}  // ← Usa .env
+            action="login"
+            signal="miniapp-ruleta-v25"
+            onSuccess={() => console.log("Prueba generada")}
             handleVerify={handleVerify}
-            // Opcional: theme="light" para UI personalizada
+            onError={(error) => console.error("IDKit Error:", error)}
           >
             {({ open }) => (
               <button
                 onClick={open}
                 disabled={isVerifying}
-                className={`px-6 py-3 font-semibold rounded-full transition-colors duration-300 ${
-                  isVerifying ? 'bg-gray-500 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
+                className={`px-8 py-4 text-lg font-bold rounded-full transition-all duration-300 ${
+                  isVerifying
+                    ? 'bg-gray-600 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg'
                 }`}
               >
-                {isVerifying ? 'Verificando...' : 'Conectarse con Worldcoin (IDKit)'}
+                {isVerifying ? 'Verificando...' : 'Conectar con Worldcoin'}
               </button>
             )}
           </IDKitWidget>
