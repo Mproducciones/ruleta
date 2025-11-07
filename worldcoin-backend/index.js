@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
   try {
     // Endpoint v2.5+ (usa tu nuevo app_id en la URL)
-    const verifyUrl = `https://developer.worldcoin.org/api/v2/verify/app_staging_TU_NUEVO_APP_ID_AQUI`;
+    const verifyUrl = `https://developer.worldcoin.org/api/v2/verify/app_7ec06caed3f34cbacd2ffaa7569655f6`;
     const verifyRes = await fetch(verifyUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
